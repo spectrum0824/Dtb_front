@@ -10,7 +10,6 @@ import Dialog from 'material-ui/Dialog';
 import style from './Login.scss';
 import $ from 'JQuery';
 import { browserHistory } from 'react-router';
-
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 function formatName(value) {
@@ -26,6 +25,7 @@ const styles = {
   container: {
     textAlign: 'center',
     paddingTop: 100,
+
   },
 };
 
@@ -61,7 +61,8 @@ class Login extends Component {
 
   handleClose = () => {
     this.setState({ open: false });
-    browserHistory.push(`/` + this.state.value);
+
+    browserHistory.push({pathname: `/` + this.state.value, state: {message: this.state.value}});
   };
 
   handleLogin = () => {
@@ -72,56 +73,61 @@ class Login extends Component {
 
     const actions = [
       <FlatButton
-        label="Okay"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.handleClose}
+      label="Okay"
+      primary={true}
+      keyboardFocused={true}
+      onTouchTap={this.handleClose}
       />,
     ];
 
 
 
     return (
+
       <div>
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-
-          <div className={style['title']}>
 
 
-            <h1>Welcome To Library</h1>
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+      <div className={style['title']}>
 
 
-            <TextField
-              hintText="Input ID Here"
-              name="id"
-              fullWidth={true}
-              value={this.state.value}
-              onChange={this.handleChange} />
-            <br />
-            <RaisedButton
-              label="LOGIN"
-              secondary={true}
-              onTouchTap={this.handleLogin}
-              fullWidth={true}
-            />
-            <Dialog
-              title="Welcome"
-              actions={actions}
-              modal={false}
-              contentStyle={customDialog}
-              open={this.state.open}
-              onRequestClose={this.handleClose}
-            >
-              <h1>
-                Hello, {formatName(this.state.value)}!
-              </h1>
-            </Dialog>
 
-          </div>
+      <h1>Welcome To Library</h1>
 
-        </MuiThemeProvider>
+
+      <TextField
+      hintText="Input ID Here"
+      name="id"
+      fullWidth={true}
+      value={this.state.value}
+      onChange={this.handleChange} />
+      <br />
+      <RaisedButton
+      label="LOGIN"
+      secondary={true}
+      onTouchTap={this.handleLogin}
+      fullWidth={true}
+      />
+      <Dialog
+      title="Welcome"
+      actions={actions}
+      modal={false}
+      contentStyle={customDialog}
+      open={this.state.open}
+      onRequestClose={this.handleClose}
+      >
+      <h1>
+      Welcome, {formatName(this.state.value)}!
+      </h1>
+      </Dialog>
+
+      </div>
+
+      </MuiThemeProvider>
+
       </div>
     );
+    <Home newVal={this.state.value}/>
   }
 }
 

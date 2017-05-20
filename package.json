@@ -17,6 +17,7 @@
     "react-addons-css-transition-group": "^15.5.2",
     "react-addons-transition-group": "^15.5.2",
     "react-autosuggest": "^9.0.0",
+    "react-background-image-loader": "0.0.5",
     "react-dom": "^15.5.4",
     "react-dropdown": "^1.2.3",
     "react-redux": "^5.0.4",

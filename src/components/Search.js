@@ -5,8 +5,13 @@ import $ from 'JQuery';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux'
 import * as actionCreators from '../actionCreators';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
 
-function mapStateToProps(state) {  
+
+function mapStateToProps(state) {
     return {
         filters: state.get('filters')
     };
@@ -45,7 +50,7 @@ export default connect(mapStateToProps)(class Search extends Component{
                 var cellValue = data[i][columns[colIndex]];
 
                 if (cellValue == null) { cellValue = ""; }
-            
+
                 if (colIndex == 1){
                     const buc = cellValue;
                     const location = `/${this.props.user}/book/${data[i][columns[colIndex-1]]}`;
@@ -60,8 +65,13 @@ export default connect(mapStateToProps)(class Search extends Component{
     }
     render() {
         return (
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div>
-        <button onClick={(e) => this.createTable(e)}>Search</button>
+        <RaisedButton
+        label="SEARCH"
+        fullWidth={true}
+        secondary={true}
+        onTouchTap={(e) => this.createTable(e)}/>
         <table id="excelDataTable" className={styles['table']}>
             <thead id="head">
             </thead>
@@ -69,6 +79,7 @@ export default connect(mapStateToProps)(class Search extends Component{
             </tbody>
         </table>
         </div>
+        </MuiThemeProvider>
         )
     }
 });

@@ -11,10 +11,10 @@ class Book extends Component {
         };
     }
     componentWillMount() {
-        axios.get(`http://localhost:3943/book/${this.props.params.id}`).then(res => res.data).then((data) => {
-            this.state.Name = data[0].Author_Name;
-            document.getElementById('body').innerHTML = this.state.Name;
-        })
+        // axios.get(`http://localhost:3943/book/${this.props.params.id}`).then(res => res.data).then((data) => {
+        //     this.state.Name = data[0].Author_Name;
+        //     document.getElementById('body').innerHTML = this.state.Name;
+        // })
     }
 
     render() {

@@ -2,16 +2,24 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import styles from './HeaderBar.scss'
 import $ from 'JQuery'
+import ActionHome from 'material-ui/svg-icons/action/home';
+import ActionMedia from 'material-ui/svg-icons/action/perm-media';
+import ActionQuery from 'material-ui/svg-icons/action/perm-data-setting';
+import ActionBook from 'material-ui/svg-icons/av/library-books';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default class HeaderBar extends Component {
   render() {
     return (
+            <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
       <header className={styles['header']}>
         <nav>
           <Link
             to={{ pathname: `/${this.props.user}` }}
             className={styles['brand']}>
-            Library
+            <ActionHome />
           </Link>
           <ul className={styles['menu']}>
             <li className={styles['menu__item']}>
@@ -19,7 +27,7 @@ export default class HeaderBar extends Component {
                 to={{ pathname: `/${this.props.user}/app` }}
                 className={styles['menu__link']}>
                 <span>
-                  BOOK
+                  <ActionBook />
                 </span>
               </Link>
             </li>
@@ -28,7 +36,7 @@ export default class HeaderBar extends Component {
                 to={{ pathname: `/${this.props.user}/digital` }}
                 className={styles['menu__link']}>
                 <span>
-                  DIGITAL MEDIA
+                  <ActionMedia />
                 </span>
               </Link>
             </li>
@@ -37,13 +45,14 @@ export default class HeaderBar extends Component {
                 to={{ pathname: `/${this.props.user}/query` }}
                 className={styles['menu__link']}>
                 <span>
-                  Query
+                  <ActionQuery />
                 </span>
               </Link>
             </li>
           </ul>
         </nav>
       </header>
+      </MuiThemeProvider>
     )
   }
 }

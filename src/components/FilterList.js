@@ -3,17 +3,33 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actionCreators from '../actionCreators';
 import FilterItem from './FilterItem';
+import { deepOrange800 } from 'material-ui/styles/colors';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import FlatButton from 'material-ui/FlatButton';
 
 class FilterList extends Component {
   render() {
     const {actions, filters} = this.props;
     return (
-      <div>
-        <h3>Filters</h3>
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+      <div style={{marginBottom: '10px'}}>
         {this.renderList()}
-        <button onClick={actions.addFilter}>+ Add filter</button>{' | '}
-        <button onClick={actions.clearFilters} disabled={filters.isEmpty()}>Clear all</button>
+         <FlatButton
+         label="Add Filter"
+         primary={true}
+         onTouchTap={actions.addFilter}
+         style={{width: '50%'}}
+         />
+         <FlatButton
+         label="Clear All"
+         disabled={filters.isEmpty()}
+         onTouchTap={actions.clearFilters}
+         style={{width: '50%'}}
+         />
       </div>
+      </MuiThemeProvider>
     );
   }
 

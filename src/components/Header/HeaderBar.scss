@@ -1,7 +1,7 @@
 @import '../../theme/variables';
 
 .header {
-  background: $dark-gray1-color;
+  background: #F50057;
   padding: 1rem;
   width: 100%;
   position: fixed;
@@ -11,7 +11,7 @@
 }
 
 .brand {
-  color: $white-color;
+  color: #FAFAFA;
   text-decoration: none;
 }
 
@@ -25,11 +25,12 @@
   &__item {
     display: inline-block;
     vertical-align: middle;
+
   }
 
   &__link {
     padding: 1rem;
-    color: $green1-color;
+    color: #FAFAFA;
     text-decoration: none;
   }
 }

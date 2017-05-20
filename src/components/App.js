@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom'
 import Autosuggest from 'react-autosuggest';
 import './App.css';
+import styles from './App.scss'
 import Search from './Search';
 import { Link } from 'react-router';
 import {bindActionCreators} from 'redux';
@@ -9,92 +10,52 @@ import {connect} from 'react-redux';
 import FilterList from './FilterList';
 import * as actionCreators from '../actionCreators';
 import * as fields from '../fields';
+import RaisedButton from 'material-ui/RaisedButton';
+import { deepOrange800 } from 'material-ui/styles/colors';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AutoComplete from 'material-ui/AutoComplete';
 
-const languages = [
-  {
-    name: 'Jon',
-    year: 1972
-  },
-  {
-    name: 'C#',
-    year: 2000
-  },
-  {
-    name: 'C++',
-    year: 1983
-  },
-  {
-    name: 'Java',
-    year: 1995
-  },
-  {
-    name: 'Javascript',
-    year: 1995
-  },
-  {
-    name: 'PHP',
-    year: 1995
-  },
-  {
-    name: 'Python',
-    year: 1991
-  },
-  {
-    name: 'Ruby',
-    year: 1995
-  },
-  {
-    name: 'Software',
-    year: 2003
-  },
-  {
-    name: 'However',
-    year: 2003
-  },
-  {
-    name: 'Libraly',
-    year: 2003
-  }
+
+const fruit = [
+  'Apple', 'Apricot', 'Avocado',
+  'Banana', 'Bilberry', 'Blackberry', 'Blackcurrant', 'Blueberry',
+  'Boysenberry', 'Blood Orange',
+  'Cantaloupe', 'Currant', 'Cherry', 'Cherimoya', 'Cloudberry',
+  'Coconut', 'Cranberry', 'Clementine',
+  'Damson', 'Date', 'Dragonfruit', 'Durian',
+  'Elderberry',
+  'Feijoa', 'Fig',
+  'Goji berry', 'Gooseberry', 'Grape', 'Grapefruit', 'Guava',
+  'Honeydew', 'Huckleberry',
+  'Jabouticaba', 'Jackfruit', 'Jambul', 'Jujube', 'Juniper berry',
+  'Kiwi fruit', 'Kumquat',
+  'Lemon', 'Lime', 'Loquat', 'Lychee',
+  'Nectarine',
+  'Mango', 'Marion berry', 'Melon', 'Miracle fruit', 'Mulberry', 'Mandarine',
+  'Olive', 'Orange',
+  'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Persimmon', 'Physalis', 'Plum', 'Pineapple',
+  'Pumpkin', 'Pomegranate', 'Pomelo', 'Purple Mangosteen',
+  'Quince',
+  'Raspberry', 'Raisin', 'Rambutan', 'Redcurrant',
+  'Salal berry', 'Satsuma', 'Star fruit', 'Strawberry', 'Squash', 'Salmonberry',
+  'Tamarillo', 'Tamarind', 'Tomato', 'Tangerine',
+  'Ugli fruit',
+  'Watermelon',
 ];
 
-// https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
-const escapeRegexCharacters = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-const getSuggestions = value => {
-  const escapedValue = escapeRegexCharacters(value.trim());
-  
-  if (escapedValue === '') {
-    return [];
-  }
-
-  const regex = new RegExp('^' + escapedValue, 'i');
-
-  return languages.filter(language => regex.test(language.name));
-}
-
-const getSuggestionValue = suggestion => suggestion.name;
-
-const renderSuggestion = suggestion => suggestion.name;
-
-const renderSuggestionsContainer = ({ containerProps, children, query }) => (
-  <div {...containerProps}>
-    {children}
-    {
-      <div className="footer">
-        Press Enter to search <strong>{query}</strong>
-      </div>
-    }
-  </div>
-);
 
 class App extends Component {
+
   constructor() {
     super();
 
     this.state = {
       value: '',
       suggestions: []
-    };    
+    };
   }
   componentWillMount(){
     this.props.actions.unselectField(fields.year);
@@ -111,42 +72,36 @@ class App extends Component {
       value: newValue
     });
   };
-  
-  onSuggestionsFetchRequested = ({ value }) => {
-    this.setState({
-      suggestions: getSuggestions(value)
-    });
-  };
 
-  onSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: []
-    });
-  };
+
 
   render() {
     const {selectedFields, availableFields, actions} = this.props;
     const { value, suggestions } = this.state;
-    const inputProps = {
-      placeholder: "Fill in the blank",
-      value,
-      onChange: this.onChange,
-      
-    };
-    return (
-        <header>
-        <Autosuggest 
-          suggestions={suggestions}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          getSuggestionValue={getSuggestionValue}
-          renderSuggestion={renderSuggestion}
-          inputProps={inputProps}
-          renderSuggestionsContainer={renderSuggestionsContainer}/>
 
+      const AutoCompleteExampleFilters = () => (
+      <div>
+        <AutoComplete
+          floatingLabelText="Type here"
+          filter={AutoComplete.caseInsensitiveFilter}
+          dataSource={fruit}
+          maxSearchResults={5}
+          fullWidth={true}
+        />
+      </div>
+    );
+
+    return (
+        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <div className={styles['title']}>
+        <h2 style={{marginBottom: '10px'}}>Search The Book Here</h2>
+
+        <AutoCompleteExampleFilters />
           <FilterList />
           <Search user={this.props.params.user} value={this.state.value}/>
-        </header>
+
+        </div>
+        </MuiThemeProvider>
     );
 
 
@@ -165,4 +120,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
