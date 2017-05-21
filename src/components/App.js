@@ -16,6 +16,20 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AutoComplete from 'material-ui/AutoComplete';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
+import { browserHistory } from 'react-router';
+
+
+function formatName(value) {
+  return value;
+}
+
+const customDialog = {
+
+  maxWidth: 'none',
+};
+
 
 
 const fruit = [
@@ -53,10 +67,20 @@ class App extends Component {
     super();
 
     this.state = {
-      value: '',
-      suggestions: []
+      value: "",
+      suggestions: [],
+      open: false,
     };
+    this.onChange = this.onChange.bind(this);
   }
+
+    handleClose = () => {
+      this.setState({ open: false });
+
+
+    };
+
+
   componentWillMount(){
     this.props.actions.unselectField(fields.year);
     this.props.actions.unselectField(fields.runtime);
@@ -67,17 +91,28 @@ class App extends Component {
     this.props.actions.selectField(fields.runtime);
   }
 
-  onChange = (event, { newValue, method }) => {
-    this.setState({
-      value: newValue
-    });
+
+
+  onChange = (chosenRequest: string) => {
+    this.setState({ value: chosenRequest});
+    this.setState({ open: true });
   };
 
 
 
   render() {
-    const {selectedFields, availableFields, actions} = this.props;
+    const {selectedFields, availableFields} = this.props;
     const { value, suggestions } = this.state;
+
+    const actions = [
+      <FlatButton
+      label="Okay"
+      primary={true}
+      keyboardFocused={true}
+      onTouchTap={this.handleClose}
+      />,
+    ];
+
 
       const AutoCompleteExampleFilters = () => (
       <div>
@@ -87,9 +122,13 @@ class App extends Component {
           dataSource={fruit}
           maxSearchResults={5}
           fullWidth={true}
+          onNewRequest={this.onChange}
+          searchText={this.state.value}
         />
       </div>
     );
+
+
 
     return (
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
@@ -99,6 +138,20 @@ class App extends Component {
         <AutoCompleteExampleFilters />
           <FilterList />
           <Search user={this.props.params.user} value={this.state.value}/>
+
+
+          <Dialog
+          title="Tester"
+          actions={actions}
+          modal={false}
+          contentStyle={customDialog}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+          >
+          <h1>
+           Search for '{formatName(this.state.value)}'!
+          </h1>
+          </Dialog>
 
         </div>
         </MuiThemeProvider>

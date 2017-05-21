@@ -11,13 +11,20 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 
 
+
+
 function mapStateToProps(state) {
     return {
         filters: state.get('filters')
     };
 }
 
+
+
 export default connect(mapStateToProps)(class Search extends Component{
+
+
+
     createTable (){
     document.getElementById('body').innerHTML = '';
     document.getElementById('head').innerHTML = '';
@@ -64,6 +71,8 @@ export default connect(mapStateToProps)(class Search extends Component{
     })
     }
     render() {
+
+
         return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div>
@@ -71,13 +80,15 @@ export default connect(mapStateToProps)(class Search extends Component{
         label="SEARCH"
         fullWidth={true}
         secondary={true}
-        onTouchTap={(e) => this.createTable(e)}/>
+        onTouchTap={this.createTable}/>
         <table id="excelDataTable" className={styles['table']}>
             <thead id="head">
             </thead>
             <tbody id="body">
             </tbody>
         </table>
+
+
         </div>
         </MuiThemeProvider>
         )
