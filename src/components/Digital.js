@@ -16,6 +16,19 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AutoComplete from 'material-ui/AutoComplete';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
+
+
+function formatName(value) {
+  return value;
+}
+
+const customDialog = {
+
+  maxWidth: 'none',
+};
+
 
 
 const fruit = [
@@ -47,111 +60,99 @@ const fruit = [
 
 
 
+class App extends Component {
 
-// https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
-const escapeRegexCharacters = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
-const getSuggestions = value => {
-  const escapedValue = escapeRegexCharacters(value.trim());
-
-  if (escapedValue === '') {
-    return [];
-  }
-
-  const regex = new RegExp('^' + escapedValue, 'i');
-
-  return languages.filter(language => regex.test(language.name));
-}
-
-const getSuggestionValue = suggestion => suggestion.name;
-
-const renderSuggestion = suggestion => suggestion.name;
-
-const renderSuggestionsContainer = ({ containerProps, children, query }) => (
-  <div {...containerProps}>
-    {children}
-    {
-      <div className="footer">
-        Press Enter to search <strong>{query}</strong>
-      </div>
-    }
-  </div>
-);
-
-class Digital extends Component {
   constructor() {
     super();
 
     this.state = {
-      value: '',
-      suggestions: []
+      value: "",
+      suggestions: [],
+      open: false,
     };
+    this.onChange = this.onChange.bind(this);
   }
 
-  componentWillMount() {
-    this.props.actions.unselectField(fields.award);
-    this.props.actions.unselectField(fields.pagecount);
-    this.props.actions.unselectField(fields.dofp);
-    this.props.actions.unselectField(fields.genres);
+    handleClose = () => {
+      this.setState({ open: false });
+
+
+    };
+
+
+  componentWillMount(){
+    this.props.actions.unselectField(fields.year);
+    this.props.actions.unselectField(fields.runtime);
   }
   componentWillUnmount(){
     this.props.actions.clearFilters();
-    this.props.actions.selectField(fields.award);
-    this.props.actions.selectField(fields.pagecount);
-    this.props.actions.selectField(fields.dofp);
-    this.props.actions.selectField(fields.genres);
+    this.props.actions.selectField(fields.year);
+    this.props.actions.selectField(fields.runtime);
   }
 
 
-  onChange = (event, { newValue, method }) => {
-    this.setState({
-      value: newValue
-    });
+
+  onChange = (chosenRequest: string) => {
+    this.setState({ value: chosenRequest});
+    this.setState({ open: true });
   };
 
-  onSuggestionsFetchRequested = ({ value }) => {
-    this.setState({
-      suggestions: getSuggestions(value)
-    });
-  };
 
-  onSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: []
-    });
-  };
 
   render() {
-    const {selectedFields, availableFields, actions} = this.props;
+    const {selectedFields, availableFields} = this.props;
     const { value, suggestions } = this.state;
-    const inputProps = {
-      placeholder: "Fill in the blank",
-      value,
-      onChange: this.onChange,
 
-    };
+    const actions = [
+      <FlatButton
+      label="Okay"
+      primary={true}
+      keyboardFocused={true}
+      onTouchTap={this.handleClose}
+      />,
+    ];
 
-    const AutoCompleteExampleFilters = () => (
-    <div>
-      <AutoComplete
-        floatingLabelText="Type here"
-        filter={AutoComplete.caseInsensitiveFilter}
-        dataSource={fruit}
-        maxSearchResults={5}
-        fullWidth={true}
-      />
-    </div>
-  );
+
+      const AutoCompleteExampleFilters = () => (
+      <div>
+        <AutoComplete
+          floatingLabelText="Type here"
+          filter={AutoComplete.caseInsensitiveFilter}
+          dataSource={fruit}
+          maxSearchResults={5}
+          fullWidth={true}
+          onNewRequest={this.onChange}
+          searchText={this.state.value}
+        />
+      </div>
+    );
+
+
+
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-      <div className={styles['title']}>
-      <h2 style={{marginBottom: '10px'}}>Search Digital Media Here</h2>
+        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <div className={styles['title']}>
+        <h2 style={{marginBottom: '10px'}}>Search Digital Media Here</h2>
 
-      <AutoCompleteExampleFilters />
-
+        <AutoCompleteExampleFilters />
           <FilterList />
           <Search user={this.props.params.user} value={this.state.value}/>
-          </div>
+
+
+          <Dialog
+          title="Tester"
+          actions={actions}
+          modal={false}
+          contentStyle={customDialog}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+          >
+          <h1>
+           Search for '{formatName(this.state.value)}'!
+          </h1>
+          </Dialog>
+
+        </div>
         </MuiThemeProvider>
     );
 
@@ -170,4 +171,4 @@ function mapDispatchToProps(dispatch) {
   return {actions: bindActionCreators(actionCreators, dispatch)};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Digital);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
