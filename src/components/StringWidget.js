@@ -4,8 +4,7 @@ import * as operators from '../operators';
 class StringWidget extends DefaultWidget {
   getOperators() {
     return {
-      [operators.CONTAINS]: 'contains',
-      [operators.EQUALS]: 'is',
+      [operators.CONTAINS]: 'contains'
     };
   }
 }

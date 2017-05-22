@@ -1,6 +1,5 @@
 import React from 'react';
 import DefaultWidget from './DefaultWidget';
-import dateFormat from 'dateformat';
 import * as operators from '../operators';
 
 class DateWidget extends DefaultWidget {
@@ -14,17 +13,16 @@ class DateWidget extends DefaultWidget {
   }
 
   renderInputElement(value, onChange) {
-    const dateAsString = value ? dateFormat(value, 'isoDate') : null;
-    const onChangeWithDate = (e) => {
-      const stringValue = e.target.value;
-      onChange(stringValue === '' ? null : new Date(stringValue));
+    const onChangeDate = (e) => {
+      const value = e.target.value;
+      onChange((value==null) ? DateWidget.defaultValue : value);
     };
 
-    return <input type="date" value={dateAsString} onChange={onChangeWithDate} />;
+    return <input type="string" value={value} onChange={onChangeDate} />;
   }
 }
 
 DateWidget.defaultOperator = operators.EQUALS;
-DateWidget.defaultValue = new Date();
+DateWidget.defaultValue = 'DD/MM/YYYY';
 
 export default DateWidget;

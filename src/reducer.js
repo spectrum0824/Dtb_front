@@ -6,7 +6,7 @@ import * as operators from './operators';
 let nextId = 0;
 
 const emptyFilters = OrderedMap();
-const availableFields = Set([fields.member, fields.award, fields.pagecount, fields.dofp, fields.genres, fields.year, fields.runtime]);
+const availableFields = Set([fields.award, fields.pagecount, fields.dofp, fields.genres, fields.year, fields.runtime]);
 
 const initialState = Map({
   filters: emptyFilters,
@@ -43,6 +43,7 @@ function addFilter(state) {
 }
 
 function removeFilter(state, filterId) {
+  nextId--;
   return state.deleteIn(['filters', filterId]);
 }
 

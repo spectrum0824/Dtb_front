@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import styles from './HeaderBar.scss'
 import $ from 'JQuery'
 import ActionHome from 'material-ui/svg-icons/action/home';
+import Logout from 'material-ui/svg-icons/action/input';
 import ActionMedia from 'material-ui/svg-icons/action/perm-media';
 import ActionQuery from 'material-ui/svg-icons/action/perm-data-setting';
 import ActionBook from 'material-ui/svg-icons/av/library-books';
@@ -49,6 +50,14 @@ export default class HeaderBar extends Component {
                 </span>
               </Link>
             </li>
+            <li className={styles['menu__item']}>
+<a href="http://localhost:8080" className={styles['menu__link']}>
+
+    <span >
+      <Logout />
+    </span>
+  </a>
+</li>
           </ul>
         </nav>
       </header>

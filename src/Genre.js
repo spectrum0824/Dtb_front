@@ -1,5 +1,5 @@
 export default [
-  {value: 'Fantasy', key: 'Fastasy'},
+  {value: 'Fantasy', key: 'Fantasy'},
   {value: 'Magic', key: 'Magic'},
   {value: 'Mystery', key: 'Mystery'},
   {value: 'Crime', key: 'Crime'},
@@ -14,4 +14,5 @@ export default [
   {value: 'Science Fiction', key: 'Science Fiction'},
   {value: 'Dark fantasy', key: 'Dark fantasy'},
   {value: 'Historical', key: 'Historical'},
+  {value: 'Horror', key: 'Horror'},
 ];

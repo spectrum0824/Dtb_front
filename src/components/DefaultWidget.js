@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import * as operators from '../operators';
 import {debounce} from '../functionUtils';
+import SelectField from 'material-ui/SelectField';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const ON_CHANGE_DELAY = 200;
 
@@ -29,6 +33,7 @@ class DefaultWidget extends Component {
   renderOperatorSelector() {
     const {operator, onOperatorChange} = this.props;
     return (
+
       <select value={operator} onChange={(e) => onOperatorChange(e.target.value)}>
         {this.renderOperators()}
       </select>

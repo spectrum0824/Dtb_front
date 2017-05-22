@@ -1,23 +1,23 @@
 $border-style: 1px solid #1DF1EA;
 
 .table {
+    text-align: center;
     border-collapse: collapse;
+    margin-top: 20px;
 
     th {
-        background-color: #4CAF50;
+      text-align: center;
+        background-color: #F50057;
         color: white;
+
     }
     table, th, td {
-        border: 1px solid black;
+        text-align: center;
+        border: 1px solid  #FAFAFA;
     }
 
 }
 
-.title {
-  position: fixed;
-  font-size: 30px;
-  top: 30%;
-  left: 50%;
-  color: #F5F5F5;
-  transform: translate(-50%, -50%);
+.inTable {
+  font-size: 13px;
 }

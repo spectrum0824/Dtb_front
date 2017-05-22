@@ -5,7 +5,6 @@ import BooleanWidget from './components/BooleanWidget';
 import SelectWidget from './components/SelectWidget';
 import genre from './Genre';
 
-export const member = {name: 'member', displayName: 'Member', widget: StringWidget};
 export const award = {name: 'award', displayName: 'Award', widget: StringWidget};
 export const pagecount = {name: 'pagecount', displayName: 'Pagecount', widget: NumberWidget};
 export const year = {name: 'year', displayName: 'Year', widget: NumberWidget};

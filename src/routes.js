@@ -6,6 +6,8 @@ import App from './components/App'
 import Query from './components/Query'
 import Digital from './components/Digital'
 import Book from './document/Book'
+import DigitalMedia from './document/DigitalMedia'
+import Author from './document/Author'
 import Login from './Login'
 import { Router, browserHistory } from 'react-router'
 import {Provider} from 'react-redux';
@@ -22,6 +24,8 @@ export default () => {
             <Route path='digital' component={Digital}/>
             <Route path='query' component={Query} />
             <Route path='book/:id' component={Book} />
+            <Route path='digitalMedia/:id' component={DigitalMedia} />
+            <Route path='author/:id' component={Author} />
           </Route>
         </Router>
       </Provider>

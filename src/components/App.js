@@ -16,47 +16,54 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AutoComplete from 'material-ui/AutoComplete';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
-import { browserHistory } from 'react-router';
 
 
 function formatName(value) {
   return value;
 }
 
-const customDialog = {
-
-  maxWidth: 'none',
-};
 
 
+const books = [
 
-const fruit = [
-  'Apple', 'Apricot', 'Avocado',
-  'Banana', 'Bilberry', 'Blackberry', 'Blackcurrant', 'Blueberry',
-  'Boysenberry', 'Blood Orange',
-  'Cantaloupe', 'Currant', 'Cherry', 'Cherimoya', 'Cloudberry',
-  'Coconut', 'Cranberry', 'Clementine',
-  'Damson', 'Date', 'Dragonfruit', 'Durian',
-  'Elderberry',
-  'Feijoa', 'Fig',
-  'Goji berry', 'Gooseberry', 'Grape', 'Grapefruit', 'Guava',
-  'Honeydew', 'Huckleberry',
-  'Jabouticaba', 'Jackfruit', 'Jambul', 'Jujube', 'Juniper berry',
-  'Kiwi fruit', 'Kumquat',
-  'Lemon', 'Lime', 'Loquat', 'Lychee',
-  'Nectarine',
-  'Mango', 'Marion berry', 'Melon', 'Miracle fruit', 'Mulberry', 'Mandarine',
-  'Olive', 'Orange',
-  'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Persimmon', 'Physalis', 'Plum', 'Pineapple',
-  'Pumpkin', 'Pomegranate', 'Pomelo', 'Purple Mangosteen',
-  'Quince',
-  'Raspberry', 'Raisin', 'Rambutan', 'Redcurrant',
-  'Salal berry', 'Satsuma', 'Star fruit', 'Strawberry', 'Squash', 'Salmonberry',
-  'Tamarillo', 'Tamarind', 'Tomato', 'Tangerine',
-  'Ugli fruit',
-  'Watermelon',
+  'A Gathering of Shadows',
+'A Great Reckoning',
+'A Rogue by Any Other Name',
+'After I\'m Gone',
+'Algorithm Design',
+'End of Watch',
+'Feverborn',
+'Halfway to the Grave',
+'Harry Potter and the Chamber of Secrets(Harry Potter #2)',
+'Harry Potter and the Cursed Child - Parts One and Two (Harry Potter, #8)',
+'Harry Potter and the Deathly Hallows (Harry Potter #7)',
+'Harry Potter and the Goblet of Fire (Harry Potter #4)',
+'Harry Potter and the Half-Blood Prince(Harry Potter #6)',
+'Harry Potter and the Order of the Phoenix(Harry Potter #5)',
+'Harry Potter and the Prisoner of Azkaban(Harry Potter #3)',
+'Harry Potter and the Sorcerer\'s Stone (Harry Potter #1)',
+'His at Night',
+'It Ends with Us',
+'Kill me once',
+'Middlemarch',
+'Moby-Dick',
+'Mr. Mercedes',
+'Need',
+'No Good Duke Goes Unpunished',
+'Ordinary Grace',
+'Peril at End House',
+'The Bands of Mourning',
+'The Beast',
+'The Beautiful Mystery',
+'The Castle Cross the Magnet Carter',
+'The Fireman',
+'The Little Men',
+'The Murder Of Roger Ackroyd',
+'The Obsession',
+'The Underground Railroad',
+'Truly Madly Guilty','How to lose weight in a week',
+
+
 ];
 
 
@@ -69,16 +76,11 @@ class App extends Component {
     this.state = {
       value: "",
       suggestions: [],
-      open: false,
+
     };
     this.onChange = this.onChange.bind(this);
   }
 
-    handleClose = () => {
-      this.setState({ open: false });
-
-
-    };
 
 
   componentWillMount(){
@@ -95,7 +97,6 @@ class App extends Component {
 
   onChange = (chosenRequest: string) => {
     this.setState({ value: chosenRequest});
-    this.setState({ open: true });
   };
 
 
@@ -104,22 +105,13 @@ class App extends Component {
     const {selectedFields, availableFields} = this.props;
     const { value, suggestions } = this.state;
 
-    const actions = [
-      <FlatButton
-      label="Okay"
-      primary={true}
-      keyboardFocused={true}
-      onTouchTap={this.handleClose}
-      />,
-    ];
-
 
       const AutoCompleteExampleFilters = () => (
       <div>
         <AutoComplete
-          floatingLabelText="Type here"
+          floatingLabelText="Type Your Book Here"
           filter={AutoComplete.caseInsensitiveFilter}
-          dataSource={fruit}
+          dataSource={books}
           maxSearchResults={5}
           fullWidth={true}
           onNewRequest={this.onChange}
@@ -133,25 +125,13 @@ class App extends Component {
     return (
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div className={styles['title']}>
-        <h2 style={{marginBottom: '10px'}}>Search The Book Here</h2>
+        <h2 style={{marginBottom: '0px',textAlign: 'center'}}>Search The Book Here</h2>
 
         <AutoCompleteExampleFilters />
           <FilterList />
           <Search user={this.props.params.user} value={this.state.value}/>
 
 
-          <Dialog
-          title="Tester"
-          actions={actions}
-          modal={false}
-          contentStyle={customDialog}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
-          >
-          <h1>
-           Search for '{formatName(this.state.value)}'!
-          </h1>
-          </Dialog>
 
         </div>
         </MuiThemeProvider>

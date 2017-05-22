@@ -5,13 +5,8 @@ import * as operators from '../operators';
 class NumberWidget extends DefaultWidget {
   getOperators() {
     return {
-      [operators.EQUALS]: '=',
-      [operators.NOT_EQUALS]: '≠',
-      [operators.GREATER_THAN]: '>',
-      [operators.GREATER_THAN_EQUALS]: '≥',
-      [operators.LESS_THAN]: '<',
-      [operators.LESS_THAN_EQUALS]: '≤',
-      [operators.BETWEEN]: 'between'
+      [operators.GREATER_THAN_EQUALS]: '>=',
+      [operators.LESS_THAN_EQUALS]: '<='
     };
   }
 
@@ -25,7 +20,7 @@ class NumberWidget extends DefaultWidget {
   }
 }
 
-NumberWidget.defaultOperator = operators.EQUALS;
+NumberWidget.defaultOperator = operators.GREATER_THAN_EQUALS;
 NumberWidget.defaultValue = 0;
 
 export default NumberWidget;

@@ -9,72 +9,34 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 
-const items = [
-  <MenuItem key={1} value={1} primaryText="Member" />,
-  <MenuItem key={2} value={2} primaryText="Award" />,
-  <MenuItem key={3} value={3} primaryText="Page Count" />,
-  <MenuItem key={4} value={4} primaryText="Year" />,
-  <MenuItem key={5} value={5} primaryText="Runyime" />,
-  <MenuItem key={6} value={6} primaryText="DOFP" />,
-  <MenuItem key={7} value={7} primaryText="Genre" />,
-];
-
-const toDo = [
-  <MenuItem key={1} value={1} primaryText="Contains" />,
-  <MenuItem key={2} value={2} primaryText="Is" />,
-
-];
-
-
-
 class FilterItem extends Component {
   shouldComponentUpdate(nextProps) {
     const {filter, availableFields} = this.props;
     return !is(nextProps.filter, filter) ||
       !is(nextProps.availableFields, availableFields);
   }
-  state = {
-    value1: null,
-    value2: null,
-  };
-handleChange1 = (event, index, value1) => this.setState({value1});
-handleChange2 = (event, index, value2) => this.setState({value2});
 
   render() {
     return (
-       <Card
-       style={{marginBottom: '10px',opacity: '0.95'}}>
-        <CardActions>
-        <SelectField
-          value={this.state.value1}
-          onChange={this.handleChange1}
-          floatingLabelText="Kind"
-        >
-          {items}
-        </SelectField>
-        <SelectField
-          style={{width: '30%'}}
-          value={this.state.value2}
-          onChange={this.handleChange2}
-          floatingLabelText="Does"
-        >
-          {toDo}
-        </SelectField>
-        <br />
-        <TextField
-        fullWidth={true}
-     hintText="Type Here..."
-     floatingLabelText="Searching Filter"
-     floatingLabelFixed={true}
-   />
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+      <Card
+      style={{marginBottom: '5px',opacity: '0.95'}}>
+       <CardActions>
+      <div>
+        {this.renderAvailable()}
+        {this.renderWidget()}
         <RaisedButton
         label="Remove"
         primary={true}
+        style={{marginTop: '10px'}}
         fullWidth={true}
         onTouchTap={this.props.onRemoveClick}/>
+        </div>
         </CardActions>
 
        </Card>
+        </MuiThemeProvider>
+
     );
   }
 

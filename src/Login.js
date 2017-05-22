@@ -12,6 +12,7 @@ import $ from 'JQuery';
 import { browserHistory } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
+
 function formatName(value) {
   return value;
 }
@@ -127,7 +128,6 @@ class Login extends Component {
 
       </div>
     );
-    <Home newVal={this.state.value}/>
   }
 }
 

@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import Autosuggest from 'react-autosuggest';
 import './App.css';
 import styles from './App.scss'
-import Search from './Search';
+import DigitalSearch from './DigitalSearch';
 import { Link } from 'react-router';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -16,46 +16,37 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AutoComplete from 'material-ui/AutoComplete';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
 
 
 function formatName(value) {
   return value;
 }
 
-const customDialog = {
-
-  maxWidth: 'none',
-};
 
 
+const books = [
 
-const fruit = [
-  'Apple', 'Apricot', 'Avocado',
-  'Banana', 'Bilberry', 'Blackberry', 'Blackcurrant', 'Blueberry',
-  'Boysenberry', 'Blood Orange',
-  'Cantaloupe', 'Currant', 'Cherry', 'Cherimoya', 'Cloudberry',
-  'Coconut', 'Cranberry', 'Clementine',
-  'Damson', 'Date', 'Dragonfruit', 'Durian',
-  'Elderberry',
-  'Feijoa', 'Fig',
-  'Goji berry', 'Gooseberry', 'Grape', 'Grapefruit', 'Guava',
-  'Honeydew', 'Huckleberry',
-  'Jabouticaba', 'Jackfruit', 'Jambul', 'Jujube', 'Juniper berry',
-  'Kiwi fruit', 'Kumquat',
-  'Lemon', 'Lime', 'Loquat', 'Lychee',
-  'Nectarine',
-  'Mango', 'Marion berry', 'Melon', 'Miracle fruit', 'Mulberry', 'Mandarine',
-  'Olive', 'Orange',
-  'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Persimmon', 'Physalis', 'Plum', 'Pineapple',
-  'Pumpkin', 'Pomegranate', 'Pomelo', 'Purple Mangosteen',
-  'Quince',
-  'Raspberry', 'Raisin', 'Rambutan', 'Redcurrant',
-  'Salal berry', 'Satsuma', 'Star fruit', 'Strawberry', 'Squash', 'Salmonberry',
-  'Tamarillo', 'Tamarind', 'Tomato', 'Tangerine',
-  'Ugli fruit',
-  'Watermelon',
+'A Class Divided',
+'ABC Africa',
+'Ape to Man',
+'Black Lives Matter',
+'Breaking The Silence: Truth and Lies in the War On Terror',
+'Earthlings',
+'Food, Inc.',
+'Four Horsemen',
+'Space Station Tour',
+'Tashi and the Monk',
+'The Great Culling: Our Water',
+'The Light Bulb Conspiracy',
+'The Magical Forest',
+'The Power Principle',
+'The Wall Street Code',
+'The World According to Monsanto',
+'Thorium: The NASA Story',
+'Waking Life',
+'War By Other Means',
+
+
 ];
 
 
@@ -68,33 +59,31 @@ class App extends Component {
     this.state = {
       value: "",
       suggestions: [],
-      open: false,
+
     };
     this.onChange = this.onChange.bind(this);
   }
 
-    handleClose = () => {
-      this.setState({ open: false });
 
 
-    };
 
-
-  componentWillMount(){
-    this.props.actions.unselectField(fields.year);
-    this.props.actions.unselectField(fields.runtime);
+  componentWillMount() {
+    this.props.actions.unselectField(fields.award);
+    this.props.actions.unselectField(fields.pagecount);
+    this.props.actions.unselectField(fields.dofp);
+    this.props.actions.unselectField(fields.genres);
   }
   componentWillUnmount(){
     this.props.actions.clearFilters();
-    this.props.actions.selectField(fields.year);
-    this.props.actions.selectField(fields.runtime);
+    this.props.actions.selectField(fields.award);
+    this.props.actions.selectField(fields.pagecount);
+    this.props.actions.selectField(fields.dofp);
+    this.props.actions.selectField(fields.genres);
   }
-
 
 
   onChange = (chosenRequest: string) => {
     this.setState({ value: chosenRequest});
-    this.setState({ open: true });
   };
 
 
@@ -103,22 +92,13 @@ class App extends Component {
     const {selectedFields, availableFields} = this.props;
     const { value, suggestions } = this.state;
 
-    const actions = [
-      <FlatButton
-      label="Okay"
-      primary={true}
-      keyboardFocused={true}
-      onTouchTap={this.handleClose}
-      />,
-    ];
-
 
       const AutoCompleteExampleFilters = () => (
       <div>
         <AutoComplete
-          floatingLabelText="Type here"
+          floatingLabelText="Type Your Book Here"
           filter={AutoComplete.caseInsensitiveFilter}
-          dataSource={fruit}
+          dataSource={books}
           maxSearchResults={5}
           fullWidth={true}
           onNewRequest={this.onChange}
@@ -132,25 +112,13 @@ class App extends Component {
     return (
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div className={styles['title']}>
-        <h2 style={{marginBottom: '10px'}}>Search Digital Media Here</h2>
+        <h2 style={{marginBottom: '0px',textAlign: 'center'}}>Search Digital Media Here</h2>
 
         <AutoCompleteExampleFilters />
           <FilterList />
-          <Search user={this.props.params.user} value={this.state.value}/>
+          <DigitalSearch user={this.props.params.user} value={this.state.value}/>
 
 
-          <Dialog
-          title="Tester"
-          actions={actions}
-          modal={false}
-          contentStyle={customDialog}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
-          >
-          <h1>
-           Search for '{formatName(this.state.value)}'!
-          </h1>
-          </Dialog>
 
         </div>
         </MuiThemeProvider>
