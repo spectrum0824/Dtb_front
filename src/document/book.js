@@ -96,7 +96,8 @@ class Book extends Component {
 
     })
     this.handleClose();
-    browserHistory.push(`/${this.props.params.user}/app`);
+    window.location.href = "http://localhost:8080/" + this.props.params.user;
+    // browserHistory.push(`/${this.props.params.user}/a`);
   }
 
   render() {

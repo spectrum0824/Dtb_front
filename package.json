@@ -46,6 +46,7 @@
     "react-router": "^3.0.5",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
+    "systemjs-hot-reloader": "^1.1.0",
     "url-loader": "^0.5.8",
     "webpack": "^2.4.1",
     "webpack-dev-middleware": "^1.10.1",

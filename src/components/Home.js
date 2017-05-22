@@ -10,6 +10,8 @@ import styles from './Home.scss'
 import { browserHistory } from 'react-router';
 import $ from 'JQuery';
 import axios from 'axios'
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 
 
 
@@ -33,8 +35,9 @@ class Home extends Component {
   }
 
   componentWillMount(){
-        this.bookTable()
-        this.digitalMediaTable()
+        injectTapEventPlugin();
+        this.bookTable();
+        this.digitalMediaTable();
 
   }
 
@@ -42,6 +45,7 @@ class Home extends Component {
           axios.get(`http://localhost:3943/userBook/${this.props.params.user}`).then(res => res.data).then((data) => {
               var columns = [];
               var headerTr$ = $('<tr/>');
+  document.getElementById('memberName').innerHTML = "Hello ," +data[0].MemberName;
               for (let i = 0 ; i < data.length ; i++) {
                   var rowHash = data[i];
                   for (var key in rowHash) {
@@ -80,7 +84,7 @@ class Home extends Component {
               var columns = [];
               var headerTr$ = $('<tr/>');
 
-
+  document.getElementById('memberName').innerHTML = "Hello ," +data[0].MemberName;
               for (let i = 0 ; i < data.length ; i++) {
                   var rowHash = data[i];
                   for (var key in rowHash) {
@@ -122,16 +126,21 @@ class Home extends Component {
       <div>
       <div className={styles['title']}>
       <h2 style={{textAlign: 'center'}}>
-          Hello, {formatName(this.props.params.user)}!
+
+            <div id = "memberName">
+                Hello, {formatName(this.props.params.user)}!
+            </div>
       </h2>
         </div>
         <div className={styles['inTable']}>
+        <h3 style={{textAlign: 'center'}}>Your Borrowing Books</h3>
       <table id="excelDataTable" className={styles['table']}>
             <thead id="head">
             </thead>
             <tbody id="body">
             </tbody>
         </table>
+        <h3 style={{textAlign: 'center'}}>Your Borrowing Digital Media</h3>
         <table id="excelDataDigitalTable" className={styles['table']}>
             <thead id="headDigital">
             </thead>
@@ -140,8 +149,6 @@ class Home extends Component {
         </table>
         </div>
         </div>
-
-
       </MuiThemeProvider>
 
 

@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import $ from 'JQuery'
+import { Link } from 'react-router'
 import style from './book.scss';
+import { browserHistory } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -13,7 +15,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
 const customDialog = {
-  width: '25%',
+  width: '35%',
   maxWidth: 'none',
 };
 
@@ -75,7 +77,7 @@ class DigitalMedia extends Component {
 
         })
         this.handleClose();
-            browserHistory.push(`/${this.props.params.user}/digital`);
+        window.location.href = "http://localhost:8080/" + this.props.params.user;
     }
 
   render() {
