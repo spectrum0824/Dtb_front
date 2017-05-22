@@ -12,16 +12,18 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default class HeaderBar extends Component {
+
   render() {
+const urlHome = `/${this.props.user}/`;
     return (
+
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
       <header className={styles['header']}>
         <nav>
-          <Link
-            to={{ pathname: `/${this.props.user}` }}
+          <a href={urlHome}
             className={styles['brand']}>
             <ActionHome />
-          </Link>
+          </a>
           <ul className={styles['menu']}>
             <li className={styles['menu__item']}>
               <Link
